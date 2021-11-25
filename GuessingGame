@@ -1,0 +1,70 @@
+#include <iostream>
+#include <ctime>
+using namespace std;
+
+void user()
+{
+    srand(0);
+    cout<<"Generating n.."<<endl; int number; number = rand() %  32767 + 1;
+    cout<<"Generating a number between 1 and n.."<<endl; int actualNumber; actualNumber = rand() % number + 1; 
+    int question, guess = 0, moves = 0;
+    cout<<"Try to guess the number"<<endl;
+    do
+    {   
+        cout<<"Choose the question: 1 -> equal to; 2 -> bigger than; 3 -> smaller than"<<endl; cin>>question;
+        cout<<"Your number is : "; cin>>guess;
+        switch (question)
+        { 
+            case 1: { cout<<"Is the computer's number equal to "<<guess<<"?"<<endl; 
+            if(guess == actualNumber) {cout<<"yes"; cout<<"Awesome! You guessed the number in "<<moves<<" tries";  return; }                  else cout<<"no"<<endl;} break;
+            
+            case 2: { cout<<"Is the computer's number bigger than "<<guess<<"?"<<endl; 
+            if(actualNumber > guess) cout<<"yes"<<endl;                        else cout<<"no"<<endl;}break;
+                                            
+            case 3: { cout<<"Is the computer's number smaller than "<<guess<<"?"<<endl;
+            if (actualNumber < guess)  cout<<"yes"<<endl;                       else cout<<"no"<<endl; }
+        }
+            moves++;
+    }while(guess != actualNumber);
+    cout<<"Awesome! You guessed the number in "<<moves<<" tries";
+}
+void pc()
+{
+    srand(0);
+    cout<<"Enter a number ->"; int number; cin>>number; 
+    int question, guess = 0, moves = 0;
+      guess  = rand() % number + 1;
+    do
+    {   
+        question = rand() % 3 + 1;
+        switch (question)
+        { 
+            case 1: { cout<<"Is your number equal to "<<guess<<"?"<<endl; 
+            if(guess == number) {cout<<"yes";  cout<<"Well done computer! You guessed the number in "<<moves++<<" tries";  return; }        else cout<<"no"<<endl;} break;
+            
+            case 2: { cout<<"Is your number bigger than "<<guess<<"?"<<endl; 
+            if(number > guess) { cout<<"yes"<<endl; guess = rand() % (number - guess+1) + guess ; } 
+                                            else {cout<<"no"<<endl; guess = rand() % guess + 1;} }break;
+                                            
+            case 3: { cout<<"Is your number smaller than "<<guess<<"?"<<endl;
+            if (number < guess) { cout<<"yes"<<endl; guess = rand() % guess + 1; } 
+                                            else { cout<<"no"<<endl; guess = rand() % (number - guess+1) + guess ; }}
+        }
+            moves++;
+    }while(guess != number);
+     cout<<"Well done computer! You guessed the number in "<<moves++<<" tries";
+}
+
+int main()
+{
+      cout<<"The permissible questions in this game are : "<<endl<<
+          "Is the number equal to..?"<<endl<<
+          "Is the number bigger than..?"<<endl<<
+          "Is the number smaller than..?"<<endl;
+    cout<<"Who guesses, you or the computer; 1 - you; 2 - computer? "<<endl; int user_; cin>>user_;
+          switch(user_){
+          case 1: user(); break;
+          case 2: pc(); break;
+          default : cout<<"The only permissible numbers are 1 and 2 ";
+          }
+}
